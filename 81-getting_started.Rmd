@@ -1,5 +1,7 @@
 # Getting Started {#getting_started}
 
+
+
 _RStudio_ in version higher than 1 must be used.
 The **bookdown** package must be installed.
 

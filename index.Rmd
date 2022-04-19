@@ -1,5 +1,5 @@
 --- 
-title: "Title of the Memoir"
+title: "Mémoire Stage M1"
 author: "Authors' names"
 date: "`r Sys.Date()`"
 url: https://GitHubID.github.io/Repository/
