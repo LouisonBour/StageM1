@@ -1,6 +1,3 @@
-
-\mainmatter
-
 # Introduction
 
 # Matériel et méthode
