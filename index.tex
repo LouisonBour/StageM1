@@ -1,0 +1,410 @@
+% Template adapted from https://github.com/jgm/pandoc-templates/blob/master/default.latex
+% To be used with XeLaTex in memoiR
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode=true}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+% Right to left support
+
+
+\documentclass[
+  
+  
+  
+  
+  ]{book}
+
+% Double (or whatever) spacing
+
+% Math
+\usepackage{amssymb, amsmath}
+% mathspec: arbitrary math fonts
+\usepackage{unicode-math}
+\defaultfontfeatures{Scale=MatchLowercase}
+\defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+
+% Fonts
+\usepackage{lmodern}
+\usepackage{fontspec}
+% Main font
+% Specific sanserif font
+% Specific monotype font
+% Specific math font
+% Chinese, Japanese, Corean fonts
+
+% Use upquote for straight quotes in verbatim environments
+\usepackage{upquote}
+% Use microtype
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+
+% Verbatim in note
+
+% Color links
+
+% Strikeout
+
+% Necessary for code chunks
+
+% Listings package
+
+% Tables
+\usepackage{longtable,booktabs,tabu}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+
+% Graphics
+
+% Prevent overfull lines
+\setlength{\emergencystretch}{3em}  
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Number sections for memoir (secnumdepth counter is ignored)
+
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+% Spacing in lists
+\usepackage{enumitem}
+
+% Polyglossia
+
+% BibLaTeX
+\usepackage[]{biblatex}
+
+% cslreferences environment required by pandoc > 2.7
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% memoiR format
+
+% Chapter Summary environment 
+\usepackage[tikz]{bclogo}
+\newenvironment{Summary}
+  {\begin{bclogo}[logo=\bctrombone, noborder=true, couleur=lightgray!50]{}\parindent0pt}
+  {\end{bclogo}}
+% Syntax:
+%
+%```{block, type='Summary'}
+% Deliver message here.
+% ```
+
+% scriptsize code 
+\let\oldverbatim\verbatim
+\def\verbatim{\oldverbatim\scriptsize}
+% Applies to code blocks and R code results
+% code chunk options size='scriptsize' applies only to R code and results
+% if the code chunk sets a different size, \def\verbatim{...} is prioritary for code results 
+
+
+% Layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Based on memoir, style companion
+\newcommand{\MemoirChapStyle}{}
+\newcommand{\MemoirPageStyle}{}
+
+% Space between paragraphs
+\usepackage{parskip}
+  \abnormalparskip{3pt}
+
+% Adjust margin paragraphs vertical position
+\usepackage{marginfix}
+
+
+% Margins
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% allow use of '-',+','/' ans '*' to make simple length computation
+\usepackage{calc}
+
+% Full-width figures utilities
+\newlength\widthw % full width
+\newlength{\rf}
+\newcommand*{\definesHSpace}{
+  \strictpagecheck % slower but efficient detection of odd/even pages
+  \checkoddpage
+  \ifoddpage
+  \setlength{\rf}{0mm}
+  \else
+  \setlength{\rf}{\marginparsep+\marginparwidth}
+  \fi
+}
+
+\makeatletter
+% 1" margins for the front matter.
+\newcommand*{\SmallMargins}{
+  \setlrmarginsandblock{}{}{*}
+  \setmarginnotes{0.1in}{0.1in}{0.1in}
+ \setulmarginsandblock{}{}{*}
+  \checkandfixthelayout
+  \ch@ngetext
+  \clearpage
+  \setlength{\widthw}{\textwidth+\marginparsep+\marginparwidth}
+  \footnotesatfoot
+  \chapterstyle{\MemoirChapStyle}  % Chapter and page styles must be recalled
+  \pagestyle{\MemoirPageStyle}
+}
+
+% 3" outer margin for the main matter
+\newcommand{\LargeMargins}{\SmallMargins}
+\makeatother
+
+% Figure captions and footnotes in outer margins
+
+
+% Main title page with filigrane
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Clear page and open an even one (\clearpage opens an odd one)
+\newcommand{\evenpage}{
+  \clearpage
+  \strictpagecheck % slower but efficient detection of odd/even pages
+  \checkoddpage
+  \ifoddpage
+    \thispagestyle{empty}
+    ~\\ % Print a character or the page will not exist
+    \newpage
+  \else
+    % do nothing
+  \fi
+}
+
+
+%% PDF title page to insert
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[strict,autostyle]{csquotes}
+% Repeated citation as author-year-title instead of author-title (modification of footcite:note in verbose-inote.cbx)
+
+%% Table of Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% fix the typesetting of the part number
+\renewcommand\partnumberlinebox[2]{#2\ ---\ }
+
+
+% Fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Hyperref comes last
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{hyperref}
+\hypersetup{
+  pdfborder={0 0 0},
+  breaklinks=true}
+
+% Don't use monospace font for urls
+\urlstyle{same}
+
+
+% Title, author, date from YAML to LaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\date{}
+
+
+% Include headers (preamble.tex) here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add LaTeX code into the preamble of the document here
+\hyphenation{bio-di-ver-si-ty sap-lings}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% memoiR dalef3 chapter style 
+% https://ctan.crest.fr/tex-archive/info/latex-samples/MemoirChapStyles/MemoirChapStyles.pdf
+\usepackage{soul}
+\definecolor{nicered}{rgb}{.647,.129,.149}
+\makeatletter
+\newlength\dlf@normtxtw
+\setlength\dlf@normtxtw{\textwidth}
+\def\myhelvetfont{\def\sfdefault{mdput}}
+\newsavebox{\feline@chapter}
+\newcommand\feline@chapter@marker[1][4cm]{%
+  \sbox\feline@chapter{%
+    \resizebox{!}{#1}{\fboxsep=1pt%
+	  \colorbox{nicered}{\color{white}\bfseries\sffamily\thechapter}%
+	}}%
+  \rotatebox{90}{%
+    \resizebox{%
+	  \heightof{\usebox{\feline@chapter}}+\depthof{\usebox{\feline@chapter}}}%
+	{!}{\scshape\so\@chapapp}}\quad%
+  \raisebox{\depthof{\usebox{\feline@chapter}}}{\usebox{\feline@chapter}}%
+ }
+\newcommand\feline@chm[1][4cm]{%
+  \sbox\feline@chapter{\feline@chapter@marker[#1]}%
+  \makebox[0pt][l]{% aka \rlap
+    \makebox[1cm][r]{\usebox\feline@chapter}%
+  }}
+\makechapterstyle{daleif1}{
+  \renewcommand\chapnamefont{\normalfont\Large\scshape\raggedleft\so}
+  \renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape\color{nicered}}
+  \renewcommand\chapternamenum{}
+  \renewcommand\printchaptername{}
+  \renewcommand\printchapternum{\null\hfill\feline@chm[2.5cm]\par}
+  \renewcommand\afterchapternum{\par\vskip\midchapskip}
+  \renewcommand\printchaptertitle[1]{\chaptitlefont\raggedleft ##1\par}
+}
+\makeatother
+
+
+% End of preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\frontmatter
+
+% Title page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% Before Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+% Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\LargeMargins
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+
+
+% Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\LargeMargins
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
+
+\hypertarget{matuxe9riel-et-muxe9thode}{%
+\chapter{Matériel et méthode}\label{matuxe9riel-et-muxe9thode}}
+
+\hypertarget{echantillonage}{%
+\section{Echantillonage}\label{echantillonage}}
+
+\hypertarget{zone-duxe9tude}{%
+\subsection{1. Zone d'étude}\label{zone-duxe9tude}}
+
+Notre étude s'est déroulée sur des parcelles de la forêt de Régina Saint Georges, située dans la zone Est de la Guyane française. D'une superficie de 375 446 ha, cette forêt appartient au domaine privé de l'Etat français et est principalement gérée par l'Office National des Forêts (ONF) (+ la direction régionale de Guyane, l'Unité territoriale de Cayenne et les Triages de Régina sud et de St Georges).
+Etant divisée en 24 secteurs forestiers (suivant principalement les limites naturelles du terrain), nos échantillonnages se sont portés sur 2 d'entre eux : HKO (Haute Kourouaïe) et MAW (Maweyo) de superficie respectives de 9 671 et 5 769 ha.
+
+Dans ces zones géographiques, la température moyenne est de 27°C, l'humidité moyenne vraie de 82\% et les précipitations moyennes annuelles sont comprises entre 3488 et 3806mm.
+Les placettes de 5m de diamètre furent identifiées sur place grâce aux données satellites de l'application QField. On retrouve parmi elles 4 types distincts :
+
+\begin{itemize}
+\tightlist
+\item
+  Cloisonnement : L'échantillonnage s'est déroulé sur un chemin ayant permis auparavant la circulation d'engins forestiers
+\item
+  Canopée fermée : L'échantillonnage s'est déroulé sous un couvert végétal dense (caractérisé par un endroit sombre)
+\item
+  Houppier : L'échantillonnage s'est déroulé sous le houppier d'un grand arbre
+\item
+  Souche : L'échantillonnage s'est déroulé près d'une souche d'une espèce d'intérêt
+  Les souches ainsi que leur désignation ont pu être identifiées par des points spécifiques sur l'application QField.
+\end{itemize}
+
+\hypertarget{espuxe8ces-dintuxe9ruxeat}{%
+\section{2. Espèces d'intérêt}\label{espuxe8ces-dintuxe9ruxeat}}
+
+11 espèces d'intérêt forestier (Annexe 1) furent dans un premier temps identifiées à l'œil nu suivant différents critères.
+Tout d'abord, seuls les individus d'une hauteur supérieure à 30cm et de diamètre inférieur à 10cm furent répertoriés, car la régénération ne concerne pas directement les gros arbres (qui furent, par ailleurs, déjà inventoriés). De plus, le centre de la placette fut représenté par une tige d'un individu (d'intérêt où non) et les individus répertoriés se trouvèrent dans un rayon de 5m à partir de cet individu.
+L'identification des espèces a pu être réalisée selon des critères d'identification phénotypiques en se basant sur la morphologie des feuilles :
+- Type de feuille (simple ou composée)
+- Disposition des feuilles et folioles (alternes ou opposées / paripennées ou imparipennées)
+- Forme des feuilles (acuminée, obtus, ovales etc.)
+- Type de bord des feuilles (entier, serrulé etc.)
+- Couleur des feuilles (face inférieure argentée)
+- Nervation (pennée, arquée, transverse, parallèles etc.)
+- Présence ou absence de poils, latex, point noir sur le rachis, odeur particulière (poivre etc.)
+Mais aussi des tiges et troncs :
+- Présence ou absence de poils
+- Modèles architecturaux
+- Couleur de l'écorce, écoulement d'exsudat, odeur particulière
+Les espèces d'intérêt étant assez différentes morphologiquement et plutôt facilement distinguables des autres, les risques de confusion furent assez faibles entre celles-ci. Cependant, certaines d'entre elles comme le Grignon furent similaires à beaucoup d'autres et leur détection fut plus délicate.
+Lorsque qu'un individu appartenant à une espèce d'intérêt fut détecté, différentes variables furent mesurées sur celui-ci, parmi elles :
+- La hauteur (en cm) entre le sol et la dernière feuille vivante grâce à un mètre ruban
+- Le diamètre (en cm) à hauteur de poitrine (DHP)
+- L'azimut par rapport à un individu central (en ??) grâce à une boussole
+- La distance : supérieure (+) ou inférieure (-) à 2,5m de l'individu central
+- La hauteur (en cm) des 3 individus les plus hauts de la parcelle détectée avec un télémètre
+- Le type de placette (cloisonnement, houppier, souche, canopée fermée)
+- La distance de certaines placettes par rapport aux espèces mères
+L'ensemble de ces données fut répertorié sur le logiciel Microsoft Excel grâce à une tablette étanche emmenée sur le terrain. Ces données furent ensuite exportées dans le logiciel R et R Studio afin de subir un traitement statistique.
+
+\hypertarget{analyses-statistiques}{%
+\section{Analyses statistiques}\label{analyses-statistiques}}
+
+Les données obtenues à l'issue des 4 semaines d'échantillonnage sont toutes des variables aléatoires, qui peuvent être classées en 4 différents types : Quantitative continue (diamètre et hauteur), quantitative discrète (hauteur des 3 plus grands individus), qualitative ordinale (distance de l'individu central) et qualitative nominale (type de placette, azimut).
+Au total, xx parcelles furent échantillonnées ainsi que xx individus suivant xx variables.
+Certaines d'entre elles furent regroupées afin de faciliter les analyses statistiques.
+Ensuite, des tests telle que la régression Zero-Inflated Poisson furent effectués.
+
+\hypertarget{ruxe9daction}{%
+\section{Rédaction}\label{ruxe9daction}}
+
+Ce présent rapport fut rédigé à l'aide de l'hébergeur GitHub via l'interface R Studio.
+
+\hypertarget{ruxe9sultats}{%
+\chapter{Résultats}\label{ruxe9sultats}}
+
+
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\backmatter
+\SmallMargins
+
+\printbibliography[title=Discussion]
+\onecolumn
+
+
+% Tables (of tables, of figures)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% After-body (LaTeX code inclusion)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% Back cover
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Even page, small margins, no running head, no page number.
+\evenpage
+\SmallMargins
+\thispagestyle{empty}
+
+
+
+
+
+\end{document}
