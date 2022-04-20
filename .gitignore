@@ -1,4 +1,6 @@
 # History files
+.DS_Store
+
 .Rhistory
 .Rapp.history
 # Session Data files
@@ -7,12 +9,10 @@
 .Rbuildignore
 # RStudio files
 .Rproj.user/
-
 # knitr and R markdown default cache directories
 /*_files/
 /*_cache/
 /libs/
-
 # Latex files
 *.aux
 *-blx.bib
@@ -29,9 +29,8 @@
 *.nav
 *.snm
 *.vrb
-
 # Template specific
 packages.bib
-
 # Uncomment if CI builds docs/
 # docs/
+.DS_Store
